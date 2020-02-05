@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Blog</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+	<h3>Edit your Recepie!!</h3>
+
+<form method="POST" enctype="multipart/form-data" >
+<div style=" font: sans-serif;max-height: 100px;max-width: 100% ">
+	<input type="text" name="title" placeholder="Blog Title" value="{{title}}" style="width: 20%;height: 30px; font:fantasy;">
+</div><br>
+
+<textarea name="content" style="width:50%;height: 200px"  placeholder="Steps">{{content}}</textarea><br>
+
+<input type = "file" name = "file" placeholder="Select Image" ><br><br>
+
+<button type="submit" name="submit">Submit</button>
+
+</form>
+<a href="{{url_for('dashboard')}}"><button>Back to dashboard</button></a>
+</body>
+</html>

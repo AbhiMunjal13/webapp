@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dasboard</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
+
+</head>
+
+
+<body>
+<!-- Sidebar (hidden by default) -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:auto;min-width:200px" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()"
+  class="w3-bar-item w3-button">☰</a>
+  <a href="{{url_for('home')}}" onclick="w3_close()"
+  class="w3-bar-item w3-button">Home</a>
+  <a href="{{url_for('add')}}" onclick="w3_close()"
+  class="w3-bar-item w3-button">Add Recepie</a>
+  <a href="{{url_for('logout')}}" onclick="w3_close()" class="w3-bar-item w3-button">Logout</a>
+  
+</nav>
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1300px;margin:auto">
+    <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+   
+    <div class="w3-center w3-padding-16">My Recepies
+
+    	<!--<div class="w3-right w3-padding-15">
+            <input type="text" id="search"   placeholder="Search for Recepies.." title="Type in a name">
+             
+             </div>-->
+
+             <input type="text" name="search" id="search" class="search-text" placeholder="Search..." autocomplete="off">
+
+    </div>
+  </div>
+</div>
+	
+<br><br>
+	<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+  <!-- First Photo Grid-->
+  
+      {% for i,j in data %}
+      <table id="table">
+        
+      <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <div class="w3-quarter">
+
+      <ul>
+      <td style="width: auto;min-width: 500px "> <a  href="{{url_for('dashboard', info= i ) }}"   style="text-decoration: none;">
+
+        <div class='photo' style="width:100%;margin:initial;max-width:400px; min-height:300px;position:relative;background:url({{ url_for('static', filename=j) }}) no-repeat center;box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);">
+          <div class='click'></td></a>
+            
+           <td> <h3><a  href="{{url_for('dashboard', info= i ) }}"   style="text-decoration: none;">{{i}}</a></h3>
+
+           	<a  href="{{url_for('edit', edit= i ) }}"   style="text-decoration: none;">
+
+           				<button type="submit"  style="border: outset;border: solid;" title="Edit"><img src="https://img.icons8.com/pastel-glyph/48/000000/edit.png"></button>
+
+           	</a>
+           	<a href="{{url_for('delete', delete= i ) }}">
+           	<button type="submit" style="border: outset;"  title="Delete"><img src="https://img.icons8.com/doodle/48/000000/delete-sign.png"></button>
+           	</a>
+
+           </td>
+
+          </div>
+
+        </div>
+      
+
+
+    
+       </div>  
+  </div>
+  </ul>
+</table>
+    {% endfor %}
+	
+<style type="text/css">
+	
+	
+
+.click{
+  display:block;
+  width:100px;
+  margin: auto;
+  text-align: center;
+   font: bold;
+  color:#444;
+  padding:60px 1px;
+  border-radius:2px;
+  font-size:2.8em
+}
+
+	@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+input{
+  color: #444;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+/* Expandable search box */
+/* Note: don't change 0.8s in transition. */
+/* --------------------- */
+input.search-text {
+	color: #222;
+	position:relative;
+	z-index:5;
+  left:500px;
+/* 	transition: z-index 0.8s, width 0.5s, background 0.3s ease, border 0.3s; */
+	height: 45px;
+	width: 0;
+	margin: 0 0 0 auto;
+	padding: 5px 0 5px 40px;
+	box-sizing: border-box;
+	font-size: 16px;
+	font-size: 1rem;
+	cursor: pointer;
+	border-radius: 30px;
+	border: 1px solid black;
+	/*background: url(search.png) no-repeat left 9px center transparent;*/
+	background: url('https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png') no-repeat right 9px center transparent;
+  background-size:24px;
+}
+input.search-text:focus {
+	z-index:3; 
+	width: 270px;
+	border: 1px solid #666;  
+	background-color: white;
+	outline: none;
+	cursor:auto;
+	padding-right: 10px;
+}
+
+input.search-submit {
+	position: relative;
+	z-index: 4;
+	top:17px;
+	left: 49px;
+	width: 45px;
+	height: 45px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	border-radius: 30px;
+	cursor: pointer; 
+	background: none;
+}
+
+input.search-text::-webkit-search-cancel-button {
+	cursor:pointer;
+}
+
+</style>
+
+<script>
+// Script to open and close sidebar
+
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  
+}
+</script>
+
+<script>
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+</script>
+
+</body>
+</html>
